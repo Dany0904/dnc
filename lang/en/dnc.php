@@ -117,3 +117,28 @@ $string['mes_septiembre']     = 'September';
 $string['mes_octubre']        = 'October';
 $string['mes_noviembre']      = 'November';
 $string['mes_diciembre']      = 'December';
+
+$string['relaciones_mejorar'] = 'Improve my relationships with colleagues and immediate supervisors';
+$string['liderazgo'] = 'Develop leadership skills';
+$string['gestion_tiempo'] = 'Improve my time management';
+$string['expectativas'] = 'What are your expectations regarding your personal development?';
+$string['comentarios'] = 'Additional comments';
+$string['si'] = 'Yes';
+$string['no'] = 'No';
+$string['choose'] = 'Choose...';
+
+$string['cap_otras'] = 'OTHER TRAININGS';
+$string['cap_otras_tema'] = 'Topic';
+$string['cap_otras_curso'] = 'Course or external certification';
+$string['cap_otras_mes1'] = '1st option (month of application)';
+$string['cap_otras_mes2'] = '2nd option (month of application)';
+$string['cap_otras_min_one'] = 'You must register at least one training in this section.';
+
+$string['capdh_q1'] = ' 1. Mejorar mis relaciones con compañeros(as) y jefes inmediatos.';
+$string['capdh_q1_extra'] = 'Relaciones que quiero mejorar:';
+$string['capdh_q2'] = '2. Capacitación para mejorar mi autoestima e incrementar conductas positivas';
+$string['capdh_q2_extra'] = 'Tema a capacitar:';
+$string['capdh_q3'] = '3. Integrar y desarrollar al personal que forma parte de mi trabajo en equipo.';
+$string['capdh_q3_extra'] = 'Tema a capacitar:';
+$string['preg_ab_1'] = '4. ¿Qué aspectos de tu desarrollo personal crees que podrían impactar positivamente en tu trabajo?';
+$string['preg_ab_2'] = '5. Algun tema o capacitación que te aporte habilidades personales, que no necesariamente desarrolles en tu puesto de trabajo.';

@@ -72,7 +72,7 @@ else if ($data = $form->get_data()) {
         $detalle->tipo        = (int)$data->cap_nivel[$i];  // 4/3/2/1
         $detalle->descripcion = $desc;
 
-        $DB->insert_record('dnc_data_cap_des_humano', $detalle);
+        $DB->insert_record('dnc_data_cap_funciones', $detalle);
     }
 
     // Guardar CAPACITACIÓN TÉCNICA
@@ -97,6 +97,56 @@ else if ($data = $form->get_data()) {
 
             $DB->insert_record('dnc_data_cap_tecnica', $record);
         }
+    }
+
+    // ================================================
+    // CAPACITACIÓN ORIENTADA A DESARROLLO HUMANO
+    // ================================================
+
+    // Preguntas Si/No con campo libre
+    $des_humano_preguntas = [
+        ['tipo' => 'tipo_0', 'desc' => 'relaciones_mejorar_desc'],
+        ['tipo' => 'tipo_1', 'desc' => 'liderazgo_desc'],
+        ['tipo' => 'tipo_2', 'desc' => 'gestion_tiempo_desc']
+    ];
+
+    foreach ($des_humano_preguntas as $preg) {
+        if (isset($data->{$preg['tipo']}) && isset($data->{$preg['desc']}) && trim($data->{$preg['desc']}) !== '') {
+            $record = new stdClass();
+            $record->dncdataid = $dncdataid;  
+            $record->tipo = (int) $data->{$preg['tipo']}; 
+            $record->descripcion = trim($data->{$preg['desc']});
+            $DB->insert_record('dnc_data_cap_des_humano', $record);
+        }
+    }
+
+    // Preguntas abiertas
+    $preguntas_abiertas = ['expectativas', 'comentarios'];
+
+    foreach ($preguntas_abiertas as $campo) {
+        if (isset($data->{$campo}) && trim($data->{$campo}) !== '') {
+            $record = new stdClass();
+            $record->dncdataid = $dncdataid;
+            $record->tipo = 3; // Tipo 3 para preguntas abiertas
+            $record->descripcion = trim($data->{$campo});
+            $DB->insert_record('dnc_data_cap_des_humano', $record);
+        }
+    }
+
+        // --- Guardar OTRAS CAPACITACIONES ---
+    foreach ($data->cap_otras_desc as $i => $desc) {
+
+        $desc = trim($desc);
+        if ($desc === '') continue;
+
+        $detalle = new stdClass();
+        $detalle->dncdataid   = $dncdataid;
+        $detalle->descripcion = $desc;
+        $detalle->curso       = trim($data->cap_otras_curso[$i]);
+        $detalle->mes1        = $data->cap_otras_mes1[$i];
+        $detalle->mes2        = $data->cap_otras_mes2[$i];
+
+        $DB->insert_record('dnc_data_cap_otras', $detalle);
     }
 
     redirect($PAGE->url, get_string('datasaved', 'mod_dnc'));

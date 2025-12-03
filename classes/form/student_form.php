@@ -124,7 +124,7 @@ class student_form extends \moodleform {
         $maxitems = 5;
 
         // Opciones de meses
-       $meses = [
+        $meses = [
             '' => get_string('choose', 'mod_dnc'), // opción vacía por defecto
             'enero'       => get_string('mes_enero', 'mod_dnc'),
             'febrero'     => get_string('mes_febrero', 'mod_dnc'),
@@ -157,6 +157,112 @@ class student_form extends \moodleform {
 
             $mform->addElement('select', "cap_tec_mes2[$i]", get_string('mes2', 'mod_dnc'), $meses);
             $mform->setType("cap_tec_mes2[$i]", PARAM_TEXT);
+
+            $mform->addElement('html', '<hr>');
+        }
+
+        // ==========================
+        // CAPACITACIÓN ORIENTADA A DESARROLLO HUMANO
+        // ==========================
+        $mform->addElement('html', '<h4>CAPACITACIÓN ORIENTADA A DESARROLLO HUMANO</h4>');
+
+        // ==========================
+        // Bloque de preguntas con Si/No y campo libre
+        $des_humano_preguntas = [
+            [
+                'label' => get_string('relaciones_mejorar', 'mod_dnc'),
+                'campo_libre' => 'relaciones_mejorar_desc',
+                'label_libre' => get_string('relaciones_mejorar_detalle', 'mod_dnc'),
+            ],
+            [
+                'label' => get_string('liderazgo', 'mod_dnc'),
+                'campo_libre' => 'liderazgo_desc',
+                'label_libre' => get_string('liderazgo_detalle', 'mod_dnc'),
+            ],
+            [
+                'label' => get_string('gestion_tiempo', 'mod_dnc'),
+                'campo_libre' => 'gestion_tiempo_desc',
+                'label_libre' => get_string('gestion_tiempo_detalle', 'mod_dnc'),
+            ],
+        ];
+
+        // Para las preguntas con Si/No
+        foreach ($des_humano_preguntas as $idx => $preg) {
+            // Label de la pregunta principal
+            $mform->addElement('static', 'label_' . $idx, '', $preg['label']);
+
+            // Select Si/No
+            $mform->addElement('select', 'tipo_' . $idx, '', [
+                ''  => get_string('choose', 'mod_dnc'),
+                1   => get_string('si', 'mod_dnc'),
+                2   => get_string('no', 'mod_dnc')
+            ]);
+            $mform->setType('tipo_' . $idx, PARAM_INT);
+
+            // Campo libre con label específico
+            $mform->addElement('text', $preg['campo_libre'], $preg['label_libre'], ['size' => 60]);
+            $mform->setType($preg['campo_libre'], PARAM_TEXT);
+
+            $mform->addElement('html', '<hr>');
+        }
+
+        // ==========================
+        // Preguntas abiertas
+        // ==========================
+        $preguntas_abiertas = [
+            'expectativas' => get_string('expectativas', 'mod_dnc'),
+            'comentarios'  => get_string('comentarios', 'mod_dnc')
+        ];
+
+        foreach ($preguntas_abiertas as $campo => $label) {
+            $mform->addElement('textarea', $campo, $label, ['rows'=>3, 'cols'=>60]);
+            $mform->setType($campo, PARAM_TEXT);
+            $mform->addElement('html', '<hr>');
+        }
+
+        // ==========================
+        // OTRAS CAPACITACIONES
+        // ==========================
+        $mform->addElement('html', '<h4>' . get_string('cap_otras', 'mod_dnc') . '</h4>');
+
+        // Loop 5 campos
+        for ($i = 0; $i < 5; $i++) {
+
+            // Tema / descripción
+            $mform->addElement(
+                'text',
+                "cap_otras_desc[$i]",
+                get_string('cap_otras_tema', 'mod_dnc'),
+                ['size' => 60]
+            );
+            $mform->setType("cap_otras_desc[$i]", PARAM_TEXT);
+
+            // Curso
+            $mform->addElement(
+                'text',
+                "cap_otras_curso[$i]",
+                get_string('cap_otras_curso', 'mod_dnc'),
+                ['size' => 60]
+            );
+            $mform->setType("cap_otras_curso[$i]", PARAM_TEXT);
+
+            // Mes 1
+            $mform->addElement(
+                'select',
+                "cap_otras_mes1[$i]",
+                get_string('cap_otras_mes1', 'mod_dnc'),
+                $meses
+            );
+            $mform->setType("cap_otras_mes1[$i]", PARAM_TEXT);
+
+            // Mes 2
+            $mform->addElement(
+                'select',
+                "cap_otras_mes2[$i]",
+                get_string('cap_otras_mes2', 'mod_dnc'),
+                $meses
+            );
+            $mform->setType("cap_otras_mes2[$i]", PARAM_TEXT);
 
             $mform->addElement('html', '<hr>');
         }
@@ -223,6 +329,68 @@ class student_form extends \moodleform {
         }
         if ($validcount_tec < 1) {
             $errors["cap_tec_desc[0]"] = get_string('cap_min_one', 'mod_dnc');
+        }
+
+        // ==========================
+        // Validación CAPACITACIÓN ORIENTADA A DESARROLLO HUMANO
+        // ==========================
+        // Campos con Si/No + texto
+        for ($i = 0; $i < 3; $i++) {
+            $tipo = isset($data['tipo_'.$i]) ? $data['tipo_'.$i] : '';
+            $desc = isset($data['relaciones_mejorar_desc']) && $i === 0 ? trim($data['relaciones_mejorar_desc']) : 
+                    (isset($data['liderazgo_desc']) && $i === 1 ? trim($data['liderazgo_desc']) : 
+                    (isset($data['gestion_tiempo_desc']) && $i === 2 ? trim($data['gestion_tiempo_desc']) : ''));
+
+            if ($tipo === '') {
+                $errors['tipo_'.$i] = get_string('required', 'mod_dnc');
+            }
+
+            if ($desc === '') {
+                $campo = $i === 0 ? 'relaciones_mejorar_desc' : ($i === 1 ? 'liderazgo_desc' : 'gestion_tiempo_desc');
+                $errors[$campo] = get_string('required', 'mod_dnc');
+            }
+        }
+
+        // Campos abiertos
+        $abiertos = ['expectativas', 'comentarios'];
+        foreach ($abiertos as $campo) {
+            if (empty(trim($data[$campo]))) {
+                $errors[$campo] = get_string('required', 'mod_dnc');
+            }
+        }
+
+        // ==========================
+        // Validación OTRAS CAPACITACIONES
+        // ==========================
+        $validcount_otras = 0;
+
+        if (!empty($data['cap_otras_desc'])) {
+
+            foreach ($data['cap_otras_desc'] as $i => $desc) {
+
+                $desc = trim($desc);
+                $curso = isset($data['cap_otras_curso'][$i]) ? trim($data['cap_otras_curso'][$i]) : '';
+                $mes1  = isset($data['cap_otras_mes1'][$i]) ? $data['cap_otras_mes1'][$i] : '';
+                $mes2  = isset($data['cap_otras_mes2'][$i]) ? $data['cap_otras_mes2'][$i] : '';
+
+                $iscomplete = ($desc !== '' && $curso !== '' && ($mes1 !== '' || $mes2 !== ''));
+
+                if ($iscomplete) {
+                    $validcount_otras++;
+                }
+
+                if ($desc !== '' && $curso === '') {
+                    $errors["cap_otras_curso[$i]"] = get_string('required');
+                }
+
+                if ($desc !== '' && $mes1 === '' && $mes2 === '') {
+                    $errors["cap_otras_mes1[$i]"] = get_string('required');
+                }
+            }
+        }
+
+        if ($validcount_otras < 1) {
+            $errors["cap_otras_desc[0]"] = get_string('cap_otras_min_one', 'mod_dnc');
         }
 
         return $errors;
