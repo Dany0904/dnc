@@ -1,42 +1,132 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/dnc/db" VERSION="2025121100" COMMENT="DNC tables">
+<XMLDB PATH="mod/dnc/db" VERSION="2025012200" COMMENT="XMLDB file for mod_dnc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../lib/xmldb/xmldb.xsd">
+
     <TABLES>
 
-        <!-- Tabla de la instancia de actividad -->
-        <TABLE NAME="dnc" COMMENT="Instancias del módulo DNC">
+        <!-- =======================
+             Tabla principal: dnc
+        ======================== -->
+        <TABLE NAME="dnc" COMMENT="Tabla principal de la actividad DNC">
             <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-                <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true"/>
-                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true"/>
-                <FIELD NAME="intro" TYPE="text"/>
-                <FIELD NAME="introformat" TYPE="int" LENGTH="2"/>
-                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
-                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" />
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" />
+                <FIELD NAME="intro" TYPE="text" NOTNULL="false" />
+                <FIELD NAME="introformat" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0" />
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" />
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" />
             </FIELDS>
+
             <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+                <KEY NAME="coursefk" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id" />
+            </KEYS>
+
+            <INDEXES>
+                <INDEX NAME="course_idx" UNIQUE="false" FIELDS="course" />
+            </INDEXES>
+        </TABLE>
+
+        <!-- =======================
+             Tabla: dnc_data
+        ======================== -->
+        <TABLE NAME="dnc_data" COMMENT="Respuestas generales del usuario para una actividad DNC">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="dncid" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" />
+                <FIELD NAME="puesto" TYPE="char" LENGTH="255" NOTNULL="false" />
+                <FIELD NAME="gerencia" TYPE="char" LENGTH="255" NOTNULL="false" />
+                <FIELD NAME="direccion" TYPE="char" LENGTH="255" NOTNULL="false" />
+                <FIELD NAME="antiguedad" TYPE="char" LENGTH="255" NOTNULL="false" />
+                <FIELD NAME="grado_estudios" TYPE="char" LENGTH="50" NOTNULL="false" />
+                <FIELD NAME="escuela" TYPE="char" LENGTH="50" NOTNULL="false" />
+            </FIELDS>
+
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+                <KEY NAME="dncidfk" TYPE="foreign" FIELDS="dncid" REFTABLE="dnc" REFFIELDS="id" />
+                <KEY NAME="userfk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" />
+            </KEYS>
+
+            <INDEXES>
+                <INDEX NAME="dncid_idx" UNIQUE="false" FIELDS="dncid" />
+                <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid" />
+            </INDEXES>
+        </TABLE>
+
+        <!-- =======================
+             Tabla: dnc_data_cap_des_humano
+        ======================== -->
+        <TABLE NAME="dnc_data_cap_des_humano" COMMENT="Capacitaciones desarrollo humano">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="dncdataid" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="tipo" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" />
+                <FIELD NAME="descripcion" TYPE="text" NOTNULL="false" />
+            </FIELDS>
+
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+                <KEY NAME="dncdatafk" TYPE="foreign" FIELDS="dncdataid" REFTABLE="dnc_data" REFFIELDS="id" />
             </KEYS>
         </TABLE>
 
-        <!-- Tabla donde se guardan respuestas -->
-        <TABLE NAME="dnc_data" COMMENT="Respuestas de usuarios">
+        <!-- =======================
+             Tabla: dnc_data_cap_funciones
+        ======================== -->
+        <TABLE NAME="dnc_data_cap_funciones" COMMENT="Capacitaciones por funciones">
             <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-                <FIELD NAME="dncid" TYPE="int" LENGTH="10" NOTNULL="true"/>
-                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
-                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
-
-                <FIELD NAME="puesto" TYPE="char" LENGTH="255"/>
-                <FIELD NAME="gerencia" TYPE="char" LENGTH="255"/>
-                <FIELD NAME="direccion" TYPE="char" LENGTH="255"/>
-                <FIELD NAME="antiguedad" TYPE="char" LENGTH="255"/>
-                <FIELD NAME="grado_estudios" TYPE="char" LENGTH="50"/>
-                <FIELD NAME="escuela" TYPE="char" LENGTH="50"/>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="dncdataid" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="descripcion" TYPE="text" NOTNULL="false" />
+                <FIELD NAME="tipo" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" />
             </FIELDS>
 
             <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-                <KEY NAME="dncid_fk" TYPE="foreign" FIELDS="dncid" REFTABLE="dnc" REFFIELDS="id"/>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+                <KEY NAME="dncdatafk" TYPE="foreign" FIELDS="dncdataid" REFTABLE="dnc_data" REFFIELDS="id" />
+            </KEYS>
+        </TABLE>
+
+        <!-- =======================
+             Tabla: dnc_data_cap_otras
+        ======================== -->
+        <TABLE NAME="dnc_data_cap_otras" COMMENT="Otras capacitaciones">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="dncdataid" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="descripcion" TYPE="text" NOTNULL="false" />
+                <FIELD NAME="curso" TYPE="char" LENGTH="255" NOTNULL="false" />
+                <FIELD NAME="mes1" TYPE="char" LENGTH="50" NOTNULL="false" />
+                <FIELD NAME="mes2" TYPE="char" LENGTH="50" NOTNULL="false" />
+            </FIELDS>
+
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+                <KEY NAME="dncdatafk" TYPE="foreign" FIELDS="dncdataid" REFTABLE="dnc_data" REFFIELDS="id" />
+            </KEYS>
+        </TABLE>
+
+        <!-- =======================
+             Tabla: dnc_data_cap_tecnica
+        ======================== -->
+        <TABLE NAME="dnc_data_cap_tecnica" COMMENT="Capacitaciones técnicas">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="dncdataid" TYPE="int" LENGTH="10" NOTNULL="true" />
+                <FIELD NAME="descripcion" TYPE="text" NOTNULL="false" />
+                <FIELD NAME="justificacion" TYPE="char" LENGTH="255" NOTNULL="false" />
+                <FIELD NAME="mes1" TYPE="char" LENGTH="50" NOTNULL="false" />
+                <FIELD NAME="mes2" TYPE="char" LENGTH="50" NOTNULL="false" />
+            </FIELDS>
+
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+                <KEY NAME="dncdatafk" TYPE="foreign" FIELDS="dncdataid" REFTABLE="dnc_data" REFFIELDS="id" />
             </KEYS>
         </TABLE>
 
