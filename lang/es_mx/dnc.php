@@ -103,7 +103,7 @@ $string['cap_tec_mes2']       = 'Mes de aplicación (2ª opción)';
 $string['required']           = 'Este campo es obligatorio';
 $string['submit']             = 'Guardar';
 $string['descripcion']        = 'Descripción';
-$string['nivel']              = 'Nivel';
+$string['nivel']              = 'Nivel de dominio o logro';
 
 $string['mes_enero']          = 'Enero';
 $string['mes_febrero']        = 'Febrero';
@@ -129,7 +129,7 @@ $string['choose'] = 'Seleccione...';
 
 $string['cap_otras'] = 'OTRAS CAPACITACIONES';
 $string['cap_otras_tema'] = 'Tema';
-$string['cap_otras_curso'] = 'Curso o certificación externa';
+$string['cap_otras_curso'] = 'Capacitación (Curso)';
 $string['cap_otras_mes1'] = '1a opción (mes de aplicación)';
 $string['cap_otras_mes2'] = '2a opción (mes de aplicación)';
 $string['cap_otras_min_one'] = 'Debe registrar al menos una capacitación en esta sección.';

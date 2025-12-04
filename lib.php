@@ -59,22 +59,3 @@ function dnc_user_has_response(int $dncid, int $userid): bool {
         'userid' => $userid,
     ]);
 }
-
-function dnc_extend_settings_navigation(settings_navigation $nav, navigation_node $node) {
-    global $PAGE;
-
-    if (!has_capability('mod/dnc:viewreport', $PAGE->context)) {
-        return;
-    }
-
-    $url = new moodle_url('/mod/dnc/report.php', ['id' => $PAGE->cm->id]);
-
-    $node->add(
-        get_string('downloadreport', 'mod_dnc'),
-        $url,
-        navigation_node::TYPE_SETTING,
-        null,
-        null,
-        new pix_icon('i/export', '')
-    );
-}

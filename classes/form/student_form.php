@@ -93,6 +93,8 @@ class student_form extends \moodleform {
         // CAPACITACIÓN ORIENTADA A FUNCIONES
         $mform->addElement('html', '<h4>CAPACITACIÓN ORIENTADA A FUNCIONES</h4>');
 
+        $mform->addElement('html', '<p>Describe tus principales funciones o actividades de acuerdo a lo que actualmente desempeñas</p>');
+
         // Número máximo de items
         $maxitems = 5;
 
@@ -120,6 +122,9 @@ class student_form extends \moodleform {
         // ==========================
         $mform->addElement('html', '<h4>CAPACITACIÓN TÉCNICA</h4>');
 
+        $mform->addElement('html', '<p>Temas de capacitación que podrían mejorar tus funciones</p>');
+        $mform->addElement('html', '<p>Escribe la capacitación técnica de tu interes</p>');
+
         // Número máximo de items
         $maxitems = 5;
 
@@ -143,19 +148,19 @@ class student_form extends \moodleform {
         for ($i = 0; $i < $maxitems; $i++) {
 
             // Curso / Descripción
-            $mform->addElement('textarea', "cap_tec_desc[$i]", get_string('curso', 'mod_dnc'), 'rows="3" cols="60"');
+            $mform->addElement('textarea', "cap_tec_desc[$i]", get_string('cap_tec_desc', 'mod_dnc'), 'rows="3" cols="60"');
             $mform->setType("cap_tec_desc[$i]", PARAM_RAW);
 
             // Justificación
-            $mform->addElement('text', "cap_tec_just[$i]", get_string('justificacion', 'mod_dnc'));
+            $mform->addElement('text', "cap_tec_just[$i]", get_string('cap_tec_just', 'mod_dnc'));
             $mform->setType("cap_tec_just[$i]", PARAM_TEXT);
             $mform->addRule("cap_tec_just[$i]", get_string('maxlength', '', 255), 'maxlength', 255);
 
             // Mes de aplicación (2 selects)
-            $mform->addElement('select', "cap_tec_mes1[$i]", get_string('mes1', 'mod_dnc'), $meses);
+            $mform->addElement('select', "cap_tec_mes1[$i]", get_string('cap_tec_mes1', 'mod_dnc'), $meses);
             $mform->setType("cap_tec_mes1[$i]", PARAM_TEXT);
 
-            $mform->addElement('select', "cap_tec_mes2[$i]", get_string('mes2', 'mod_dnc'), $meses);
+            $mform->addElement('select', "cap_tec_mes2[$i]", get_string('cap_tec_mes2', 'mod_dnc'), $meses);
             $mform->setType("cap_tec_mes2[$i]", PARAM_TEXT);
 
             $mform->addElement('html', '<hr>');
@@ -165,24 +170,25 @@ class student_form extends \moodleform {
         // CAPACITACIÓN ORIENTADA A DESARROLLO HUMANO
         // ==========================
         $mform->addElement('html', '<h4>CAPACITACIÓN ORIENTADA A DESARROLLO HUMANO</h4>');
+        $mform->addElement('html', '<p>Contesta segun sea de tu interes</p>');
 
         // ==========================
         // Bloque de preguntas con Si/No y campo libre
         $des_humano_preguntas = [
             [
-                'label' => get_string('relaciones_mejorar', 'mod_dnc'),
+                'label' => get_string('capdh_q1', 'mod_dnc'),
                 'campo_libre' => 'relaciones_mejorar_desc',
-                'label_libre' => get_string('relaciones_mejorar_detalle', 'mod_dnc'),
+                'label_libre' => get_string('capdh_q1_extra', 'mod_dnc'),
             ],
             [
-                'label' => get_string('liderazgo', 'mod_dnc'),
+                'label' => get_string('capdh_q2', 'mod_dnc'),
                 'campo_libre' => 'liderazgo_desc',
-                'label_libre' => get_string('liderazgo_detalle', 'mod_dnc'),
+                'label_libre' => get_string('capdh_q2_extra', 'mod_dnc'),
             ],
             [
-                'label' => get_string('gestion_tiempo', 'mod_dnc'),
+                'label' => get_string('capdh_q3', 'mod_dnc'),
                 'campo_libre' => 'gestion_tiempo_desc',
-                'label_libre' => get_string('gestion_tiempo_detalle', 'mod_dnc'),
+                'label_libre' => get_string('capdh_q3_extra', 'mod_dnc'),
             ],
         ];
 
@@ -210,8 +216,8 @@ class student_form extends \moodleform {
         // Preguntas abiertas
         // ==========================
         $preguntas_abiertas = [
-            'expectativas' => get_string('expectativas', 'mod_dnc'),
-            'comentarios'  => get_string('comentarios', 'mod_dnc')
+            'expectativas' => get_string('preg_ab_1', 'mod_dnc'),
+            'comentarios'  => get_string('preg_ab_2', 'mod_dnc')
         ];
 
         foreach ($preguntas_abiertas as $campo => $label) {
@@ -224,6 +230,7 @@ class student_form extends \moodleform {
         // OTRAS CAPACITACIONES
         // ==========================
         $mform->addElement('html', '<h4>' . get_string('cap_otras', 'mod_dnc') . '</h4>');
+        $mform->addElement('html', '<p>¿Qué problemas enfrentaste en tu trabajo que podrían resolverse con capacitación?</p>');
 
         // Loop 5 campos
         for ($i = 0; $i < 5; $i++) {
@@ -250,7 +257,7 @@ class student_form extends \moodleform {
             $mform->addElement(
                 'select',
                 "cap_otras_mes1[$i]",
-                get_string('cap_otras_mes1', 'mod_dnc'),
+                get_string('cap_tec_mes1', 'mod_dnc'),
                 $meses
             );
             $mform->setType("cap_otras_mes1[$i]", PARAM_TEXT);
@@ -259,7 +266,7 @@ class student_form extends \moodleform {
             $mform->addElement(
                 'select',
                 "cap_otras_mes2[$i]",
-                get_string('cap_otras_mes2', 'mod_dnc'),
+                get_string('cap_tec_mes2', 'mod_dnc'),
                 $meses
             );
             $mform->setType("cap_otras_mes2[$i]", PARAM_TEXT);

@@ -2,49 +2,49 @@
 $string['pluginname'] = 'DNC';
 $string['modulename'] = 'DNC';
 $string['modulenameplural'] = 'DNC';
-$string['modulename_help'] = 'Esta actividad permite registrar datos del alumno en DNC.';
-$string['dncfieldset'] = 'Configuración';
-$string['dnc:addinstance'] = 'Agregar nueva actividad DNC';
-$string['dnc:view'] = 'Ver actividad DNC';
+$string['modulename_help'] = 'This activity allows recording the student’s data in the DNC.';
+$string['dncfieldset'] = 'Settings';
+$string['dnc:addinstance'] = 'Add new DNC activity';
+$string['dnc:view'] = 'View DNC activity';
 
-$string['submit'] = 'Enviar';
-
-$string['puesto'] = 'Puesto';
-$string['gerencia'] = 'Gerencia o área';
-$string['direccion'] = 'Dirección a la que perteneces';
-$string['antiguedad'] = 'Antigüedad';
-
-$string['grado_estudios'] = 'Último grado de estudios';
-$string['secundaria'] = 'Secundaria';
-$string['bachillerato'] = 'Bachillerato';
-$string['tecnico'] = 'Técnico';
-$string['licenciatura'] = 'Licenciatura';
-$string['posgrado'] = 'Posgrado';
-
-$string['escuela'] = 'Escuela';
-$string['escuela_publica'] = 'Pública';
-$string['escuela_privada'] = 'Privada';
-
-$string['alreadycompleted'] = 'Ya has enviado esta información.';
-$string['datasaved'] = 'Datos guardados correctamente.';
-
-$string['downloadreport'] = 'Descargar reporte Excel';
-$string['viewreport'] = 'Ver reporte';
-
-$string['globalreport'] = 'Reporte global DNC';
-
-$string['downloadpdf'] = 'Descargar PDF';
-$string['alreadycompleted'] = 'Ya has completado este formulario.';
-$string['reporttitle'] = 'Datos registrados';
+$string['submit'] = 'Submit';
 
 $string['puesto'] = 'Position';
-$string['grado_estudios'] = 'Education level';
+$string['gerencia'] = 'Management or Area';
+$string['direccion'] = 'Department you belong to';
+$string['antiguedad'] = 'Seniority';
+
+$string['grado_estudios'] = 'Highest level of education';
+$string['secundaria'] = 'Secondary school';
+$string['bachillerato'] = 'High school';
+$string['tecnico'] = 'Technical';
+$string['licenciatura'] = 'Bachelor\'s degree';
+$string['posgrado'] = 'Postgraduate';
+
+$string['escuela'] = 'School';
+$string['escuela_publica'] = 'Public';
+$string['escuela_privada'] = 'Private';
+
+$string['alreadycompleted'] = 'You have already submitted this information.';
+$string['datasaved'] = 'Data saved successfully.';
+
+$string['downloadreport'] = 'Download Excel report';
+$string['viewreport'] = 'View report';
+
+$string['globalreport'] = 'Global DNC Report';
+
+$string['downloadpdf'] = 'Download PDF';
+$string['alreadycompleted'] = 'You have already completed this form.';
+$string['reporttitle'] = 'Recorded data';
+
+$string['puesto'] = 'Position';
+$string['grado_estudios'] = 'Educational level';
 $string['escuela'] = 'School';
 $string['gerencia'] = 'Area';
 
-$string['puesto_direccion'] = 'Management';
-$string['puesto_gerencia'] = 'Department';
-$string['puesto_jefatura'] = 'Head';
+$string['puesto_direccion'] = 'Directorate';
+$string['puesto_gerencia'] = 'Management';
+$string['puesto_jefatura'] = 'Headship';
 $string['puesto_coordinacion'] = 'Coordination';
 $string['puesto_supervision'] = 'Supervision';
 $string['puesto_analista'] = 'Analyst';
@@ -54,47 +54,47 @@ $string['area_finanzas'] = 'Finance';
 $string['area_contabilidad'] = 'Accounting';
 $string['area_administracion'] = 'Administration';
 $string['area_tesoreria'] = 'Treasury';
-$string['area_capitalhumano'] = 'Human Resources';
+$string['area_capitalhumano'] = 'Human Capital';
 $string['area_desarrollohumano'] = 'Human Development';
-$string['area_planeaciontransformacion'] = 'Planning & Transformation';
+$string['area_planeaciontransformacion'] = 'Planning and Transformation';
 $string['area_planeacion'] = 'Planning';
-$string['area_inteligenciatecnologia'] = 'Intelligence & Technology';
+$string['area_inteligenciatecnologia'] = 'Intelligence and Technology';
 $string['area_mejoracontinua'] = 'Continuous Improvement';
 $string['area_produccionstaff'] = 'Production Staff';
-$string['area_produccionoperativo'] = 'Production Operative';
+$string['area_produccionoperativo'] = 'Production Operations';
 $string['area_compras'] = 'Purchasing';
 $string['area_plantastaff'] = 'Plant Staff';
 $string['area_logistica'] = 'Logistics';
 $string['area_comercialstaff'] = 'Commercial Staff';
 $string['area_puntosventa'] = 'Points of Sale';
 $string['area_callcenter'] = 'Call Center';
-$string['area_servicio_domicilio'] = 'Delivery Service';
+$string['area_servicio_domicilio'] = 'Home Delivery Service';
 $string['area_mercadotecnia'] = 'Marketing';
-$string['area_direcciongeneral'] = 'General Direction';
+$string['area_direcciongeneral'] = 'General Management';
 
-$string['cap_orientada'] = 'CAPACITACIÓN ORIENTADA A FUNCIONES';
-$string['cap_introduction'] = 'Describe tus principales funciones actuales (mínimo 1, máximo 5)';
-$string['cap_funciones'] = 'Describe tus funciones';
-$string['cap_nivel'] = 'Nivel de dominio o logro';
-$string['cap_excelente'] = 'Excelente';
-$string['cap_bueno'] = 'Bueno';
-$string['cap_regular'] = 'Regular';
-$string['cap_deficiente'] = 'Deficiente';
-$string['cap_add'] = 'Agregar otra función';
-$string['cap_min_one'] = 'Debes registrar al menos una función.';
+$string['cap_orientada'] = 'TRAINING ORIENTED TO FUNCTIONS';
+$string['cap_introduction'] = 'Describe your main current duties (minimum 1, maximum 5).';
+$string['cap_funciones'] = 'Describe your duties';
+$string['cap_nivel'] = 'Level of mastery or achievement';
+$string['cap_excelente'] = 'Excellent';
+$string['cap_bueno'] = 'Good';
+$string['cap_regular'] = 'Average';
+$string['cap_deficiente'] = 'Poor';
+$string['cap_add'] = 'Add another duty';
+$string['cap_min_one'] = 'You must register at least one duty.';
 
-$string['cap_orientada']      = 'Function-Oriented Training';
-$string['cap_introduction']   = 'Enter the functions and rate your performance level.';
-$string['cap_funciones']      = 'Function Description';
-$string['cap_nivel']          = 'Performance Level';
+$string['cap_orientada']      = 'Function-oriented training';
+$string['cap_introduction']   = 'Enter your functions and rate your level.';
+$string['cap_funciones']      = 'Function description';
+$string['cap_nivel']          = 'Performance level';
 $string['cap_excelente']      = 'Excellent';
 $string['cap_bueno']          = 'Good';
-$string['cap_regular']        = 'Regular';
-$string['cap_deficiente']     = 'Deficient';
+$string['cap_regular']        = 'Average';
+$string['cap_deficiente']     = 'Poor';
 $string['cap_add']            = 'Add another function';
-$string['cap_min_one']        = 'You must enter at least one complete function record';
+$string['cap_min_one']        = 'You must enter at least one complete function record.';
 
-$string['cap_tecnica']        = 'Technical Training';
+$string['cap_tecnica']        = 'Technical training';
 $string['cap_tec_desc']       = 'Course / Description';
 $string['cap_tec_just']       = 'Justification';
 $string['cap_tec_mes1']       = 'Application month (1st option)';
@@ -103,7 +103,7 @@ $string['cap_tec_mes2']       = 'Application month (2nd option)';
 $string['required']           = 'This field is required';
 $string['submit']             = 'Save';
 $string['descripcion']        = 'Description';
-$string['nivel']              = 'Level';
+$string['nivel']              = 'Level of mastery or achievement';
 
 $string['mes_enero']          = 'January';
 $string['mes_febrero']        = 'February';
@@ -118,27 +118,27 @@ $string['mes_octubre']        = 'October';
 $string['mes_noviembre']      = 'November';
 $string['mes_diciembre']      = 'December';
 
-$string['relaciones_mejorar'] = 'Improve my relationships with colleagues and immediate supervisors';
+$string['relaciones_mejorar'] = 'Improve my relationships with coworkers and immediate supervisors';
 $string['liderazgo'] = 'Develop leadership skills';
 $string['gestion_tiempo'] = 'Improve my time management';
-$string['expectativas'] = 'What are your expectations regarding your personal development?';
+$string['expectativas'] = 'What expectations do you have about your personal development?';
 $string['comentarios'] = 'Additional comments';
 $string['si'] = 'Yes';
 $string['no'] = 'No';
-$string['choose'] = 'Choose...';
+$string['choose'] = 'Select...';
 
-$string['cap_otras'] = 'OTHER TRAININGS';
+$string['cap_otras'] = 'OTHER TRAINING';
 $string['cap_otras_tema'] = 'Topic';
-$string['cap_otras_curso'] = 'Course or external certification';
-$string['cap_otras_mes1'] = '1st option (month of application)';
-$string['cap_otras_mes2'] = '2nd option (month of application)';
+$string['cap_otras_curso'] = 'Training (Course)';
+$string['cap_otras_mes1'] = '1st option (application month)';
+$string['cap_otras_mes2'] = '2nd option (application month)';
 $string['cap_otras_min_one'] = 'You must register at least one training in this section.';
 
-$string['capdh_q1'] = ' 1. Mejorar mis relaciones con compañeros(as) y jefes inmediatos.';
-$string['capdh_q1_extra'] = 'Relaciones que quiero mejorar:';
-$string['capdh_q2'] = '2. Capacitación para mejorar mi autoestima e incrementar conductas positivas';
-$string['capdh_q2_extra'] = 'Tema a capacitar:';
-$string['capdh_q3'] = '3. Integrar y desarrollar al personal que forma parte de mi trabajo en equipo.';
-$string['capdh_q3_extra'] = 'Tema a capacitar:';
-$string['preg_ab_1'] = '4. ¿Qué aspectos de tu desarrollo personal crees que podrían impactar positivamente en tu trabajo?';
-$string['preg_ab_2'] = '5. Algun tema o capacitación que te aporte habilidades personales, que no necesariamente desarrolles en tu puesto de trabajo.';
+$string['capdh_q1'] = '1. Improve my relationships with coworkers and immediate supervisors.';
+$string['capdh_q1_extra'] = 'Relationships I want to improve:';
+$string['capdh_q2'] = '2. Training to improve my self-esteem and increase positive behaviors';
+$string['capdh_q2_extra'] = 'Training topic:';
+$string['capdh_q3'] = '3. Integrate and develop the personnel who are part of my work team.';
+$string['capdh_q3_extra'] = 'Training topic:';
+$string['preg_ab_1'] = '4. What aspects of your personal development do you believe could positively impact your work?';
+$string['preg_ab_2'] = '5. Any topic or training that could provide you with personal skills, not necessarily related to your current job role.';

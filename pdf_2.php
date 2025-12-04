@@ -2,26 +2,32 @@
 require_once(__DIR__.'/../../config.php');
 require_once($CFG->libdir . '/tcpdf/tcpdf.php');
 
-$id = required_param('id', PARAM_INT); // course module id
+global $DB;
 
+// === PARAMETROS ===
+$id = required_param('id', PARAM_INT);        // course module id
+$userid = required_param('userid', PARAM_INT); // usuario del reporte
+
+// === OBTENER CM Y DNC ===
 $cm = get_coursemodule_from_id('dnc', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', ['id'=>$cm->course], '*', MUST_EXIST);
 $dnc = $DB->get_record('dnc', ['id'=>$cm->instance], '*', MUST_EXIST);
 
+// === LOGIN Y CONTEXTO ===
 require_login($course, true, $cm);
-
 $context = context_module::instance($cm->id);
 
-// Obtener registro del usuario
+// === OBTENER REGISTRO DEL USUARIO ===
 $data = $DB->get_record('dnc_data', [
-    'dncid'=>$dnc->id,
-    'userid'=>$USER->id
+    'dncid' => $dnc->id,
+    'userid' => $userid
 ]);
 
-
 if (!$data) {
-    print_error('No data found');
+    print_error('No se encontró información de DNC para este usuario.');
 }
+
+$username = $DB->get_field('user', 'CONCAT(firstname, " ", lastname)', ['id' => $userid]);
 
 $fecha_modificado = userdate($data->timemodified, '%d/%m/%Y');
 
@@ -77,11 +83,15 @@ $otrascap = $DB->get_records('dnc_data_cap_otras', [
     'dncdataid' => $data->id
 ]);
 
+if (!$data) {
+    print_error('No data found');
+}
+
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8');
 
 // Metadatos
 $pdf->SetCreator('Moodle');
-$pdf->SetAuthor(fullname($USER));
+$pdf->SetAuthor($username); 
 $pdf->SetTitle($dnc->name);
 $pdf->SetSubject('Reporte DNC');
 
