@@ -42,13 +42,13 @@ $string['grado_estudios'] = 'Educational level';
 $string['escuela'] = 'School';
 $string['gerencia'] = 'Area';
 
-$string['puesto_direccion'] = 'Directorate';
-$string['puesto_gerencia'] = 'Management';
-$string['puesto_jefatura'] = 'Headship';
-$string['puesto_coordinacion'] = 'Coordination';
-$string['puesto_supervision'] = 'Supervision';
-$string['puesto_analista'] = 'Analyst';
-$string['puesto_becario'] = 'Intern';
+$string['direccion_direccion'] = 'Finance and Administration';
+$string['direccion_gerencia'] = 'Planning and Transformation';
+$string['direccion_jefatura'] = 'Human Capital';
+$string['direccion_coordinacion'] = 'Projects';
+$string['direccion_supervision'] = 'Commercial';
+$string['direccion_analista'] = 'General Management';
+$string['direccion_becario'] = 'Plant';
 
 $string['area_finanzas'] = 'Finance';
 $string['area_contabilidad'] = 'Accounting';

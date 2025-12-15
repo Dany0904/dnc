@@ -42,13 +42,13 @@ $string['grado_estudios'] = 'Grado de estudios';
 $string['escuela'] = 'Escuela';
 $string['gerencia'] = 'Área';
 
-$string['puesto_direccion'] = 'Dirección';
-$string['puesto_gerencia'] = 'Gerencia';
-$string['puesto_jefatura'] = 'Jefatura';
-$string['puesto_coordinacion'] = 'Coordinación';
-$string['puesto_supervision'] = 'Supervisión';
-$string['puesto_analista'] = 'Analista';
-$string['puesto_becario'] = 'Becario';
+$string['direccion_direccion'] = 'Finanzas y Administración';
+$string['direccion_gerencia'] = 'Planeación y transformación ';
+$string['direccion_jefatura'] = 'Capital Humano';
+$string['direccion_coordinacion'] = 'Proyectos';
+$string['direccion_supervision'] = 'Comercial';
+$string['direccion_analista'] = 'Dirección General';
+$string['direccion_becario'] = 'Planta';
 
 $string['area_finanzas'] = 'Finanzas';
 $string['area_contabilidad'] = 'Contabilidad';

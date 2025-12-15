@@ -14,15 +14,7 @@ class student_form extends \moodleform {
         //    DATOS GENERALES
         // ==========================
         // Campo: Puesto (select)
-        $mform->addElement('select', 'puesto', get_string('puesto', 'mod_dnc'), [
-            'direccion'     => get_string('puesto_direccion', 'mod_dnc'),
-            'gerencia'      => get_string('puesto_gerencia', 'mod_dnc'),
-            'jefatura'      => get_string('puesto_jefatura', 'mod_dnc'),
-            'coordinacion'  => get_string('puesto_coordinacion', 'mod_dnc'),
-            'supervision'   => get_string('puesto_supervision', 'mod_dnc'),
-            'analista'      => get_string('puesto_analista', 'mod_dnc'),
-            'becario'       => get_string('puesto_becario', 'mod_dnc'),
-        ]);
+        $mform->addElement('text', 'puesto', get_string('puesto', 'mod_dnc'));
         $mform->setType('puesto', PARAM_TEXT);
         $mform->addRule('puesto', get_string('required'), 'required');
 
@@ -54,7 +46,15 @@ class student_form extends \moodleform {
         $mform->addRule('gerencia', get_string('required'), 'required');
 
         // Campo: Dirección
-        $mform->addElement('text', 'direccion', get_string('direccion', 'mod_dnc'));
+         $mform->addElement('select', 'direccion', get_string('direccion', 'mod_dnc'), [
+            'direccion'     => get_string('direccion_direccion', 'mod_dnc'),
+            'gerencia'      => get_string('direccion_gerencia', 'mod_dnc'),
+            'jefatura'      => get_string('direccion_jefatura', 'mod_dnc'),
+            'coordinacion'  => get_string('direccion_coordinacion', 'mod_dnc'),
+            'supervision'   => get_string('direccion_supervision', 'mod_dnc'),
+            'analista'      => get_string('direccion_analista', 'mod_dnc'),
+            'becario'       => get_string('direccion_becario', 'mod_dnc'),
+        ]);
         $mform->setType('direccion', PARAM_TEXT);
         $mform->addRule('direccion', get_string('required'), 'required');
 
