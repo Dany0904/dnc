@@ -15,23 +15,40 @@ $filename = "dnc_export_" . date('Ymd_His') . ".xlsx";
 
 $workbook = new MoodleExcelWorkbook("-");
 $workbook->send($filename);
+$cellformat = $workbook->add_format();
+$cellformat->set_text_wrap();
+$cellformat->set_align('top');
 $sheet = $workbook->add_worksheet('Reporte DNC');
+
+$sheet->set_column(0, 0, 30); // Nombre
+$sheet->set_column(1, 1, 20); // Puesto
+$sheet->set_column(2, 2, 20); // Área
+$sheet->set_column(3, 100, 35); // Todas las demás
 
 $headers = [
     'Nombre',
     'Puesto',
-    'Área',
-    'Curso (Técnica)',
-    'Mes1 Técnica',
-    'Mes2 Técnica',
-    'Curso (Otras)',
-    'Mes1 Otras',
-    'Mes2 Otras'
+    'Área'
 ];
+
+// === TÉCNICA (5) ===
+for ($i = 1; $i <= 5; $i++) {
+    $headers[] = "Curso Técnica $i";
+    $headers[] = "Mes 1 Técnica $i";
+    $headers[] = "Mes 2 Técnica $i";
+}
+
+// === OTRAS (5) ===
+for ($i = 1; $i <= 5; $i++) {
+    $headers[] = "Curso Otras $i";
+    $headers[] = "Mes 1 Otras $i";
+    $headers[] = "Mes 2 Otras $i";
+}
+
 
 $col = 0;
 foreach ($headers as $h) {
-    $sheet->write(0, $col++, $h);
+    $sheet->write(0, $col++, $h, $cellformat);
 }
 
 // === QUERY BASE ===
@@ -65,39 +82,48 @@ $records = $DB->get_records_sql($sql, $params);
 $row = 1;
 foreach ($records as $r) {
 
-    // === CAPACITACIÓN TÉCNICA ===
-    $tec = $DB->get_records('dnc_data_cap_tecnica', ['dncdataid' => $r->dncdataid], 'id ASC');
-    $tec_curso = [];
-    $tec_mes1 = [];
-    $tec_mes2 = [];
+    $col = 0;
 
-    foreach ($tec as $t) {
-        $tec_curso[] = $t->descripcion;
-        $tec_mes1[] = $t->mes1;
-        $tec_mes2[] = $t->mes2;
+    $sheet->write($row, $col++, $r->username, $cellformat);
+    $sheet->write($row, $col++, $r->puesto, $cellformat);
+    $sheet->write($row, $col++, $r->gerencia, $cellformat);
+
+    $tec = array_values($DB->get_records(
+        'dnc_data_cap_tecnica',
+        ['dncdataid' => $r->dncdataid],
+        'id ASC'
+    ));
+
+    for ($i = 0; $i < 5; $i++) {
+        if (isset($tec[$i])) {
+            $sheet->write($row, $col++, $tec[$i]->descripcion, $cellformat);
+            $sheet->write($row, $col++, $tec[$i]->mes1, $cellformat);
+            $sheet->write($row, $col++, $tec[$i]->mes2, $cellformat);
+        } else {
+            // columnas vacías
+            $sheet->write($row, $col++, '', $cellformat);
+            $sheet->write($row, $col++, '', $cellformat);
+            $sheet->write($row, $col++, '', $cellformat);
+        }
     }
 
-    // === OTRAS CAPACITACIONES ===
-    $otras = $DB->get_records('dnc_data_cap_otras', ['dncdataid' => $r->dncdataid], 'id ASC');
-    $otras_curso = [];
-    $otras_mes1 = [];
-    $otras_mes2 = [];
+    $otras = array_values($DB->get_records(
+        'dnc_data_cap_otras',
+        ['dncdataid' => $r->dncdataid],
+        'id ASC'
+    ));
 
-    foreach ($otras as $o) {
-        $otras_curso[] = $o->curso;
-        $otras_mes1[] = $o->mes1;
-        $otras_mes2[] = $o->mes2;
+    for ($i = 0; $i < 5; $i++) {
+        if (isset($otras[$i])) {
+            $sheet->write($row, $col++, $otras[$i]->curso, $cellformat);
+            $sheet->write($row, $col++, $otras[$i]->mes1, $cellformat);
+            $sheet->write($row, $col++, $otras[$i]->mes2, $cellformat);
+        } else {
+            $sheet->write($row, $col++, '', $cellformat);
+            $sheet->write($row, $col++, '', $cellformat);
+            $sheet->write($row, $col++, '', $cellformat);
+        }
     }
-
-    $sheet->write($row, 0, $r->username);
-    $sheet->write($row, 1, $r->puesto);
-    $sheet->write($row, 2, $r->gerencia);
-    $sheet->write($row, 3, implode(" | ", $tec_curso));
-    $sheet->write($row, 4, implode(" | ", $tec_mes1));
-    $sheet->write($row, 5, implode(" | ", $tec_mes2));
-    $sheet->write($row, 6, implode(" | ", $otras_curso));
-    $sheet->write($row, 7, implode(" | ", $otras_mes1));
-    $sheet->write($row, 8, implode(" | ", $otras_mes2));
 
     $row++;
 }
