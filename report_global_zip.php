@@ -282,8 +282,25 @@ foreach ($records as $r) {
     $pdfname = tempnam(sys_get_temp_dir(), 'dnc_pdf_') . '.pdf';
     $pdf->Output($pdfname, 'F');
 
-    // Añadir al ZIP
-    $zip->addFile($pdfname, 'DNC_' . $r->username . '.pdf');
+    $safename = preg_replace(
+        '/[\x00-\x1F\x7F]/u',
+        ' ',
+        $r->username
+    );
+
+    // Normalizar espacios consecutivos y eliminar los extremos.
+    $safename = preg_replace('/\s+/u', ' ', trim($safename));
+
+    // Mantener el formato original: DNC_NOMBRE DEL USUARIO.pdf
+    $entryname = 'DNC_' . $safename . '.pdf';
+
+    if (!$zip->addFile($pdfname, $entryname)) {
+        error_log(
+            '[DNC ZIP] No se pudo agregar el PDF del usuario ID ' .
+            $r->userid . ', nombre: ' . $safename
+        );
+    }
+
 }
 
 // Cerrar ZIP

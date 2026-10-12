@@ -12,28 +12,68 @@ $PAGE->set_title('Reporte Global DNC');
 $PAGE->set_heading('Reporte Global DNC');
 
 echo $OUTPUT->header();
-
-// === PARAMETRO usuario ===
+ // === PARAMETRO usuario ===
 $userid = optional_param('userid', 0, PARAM_INT);
 
-// === SELECT de usuarios con registros ===
+// === SELECT DE USUARIOS ORDENADOS ALFABÉTICAMENTE ===
 $users = $DB->get_records_sql_menu("
-    SELECT DISTINCT u.id, CONCAT(u.firstname,' ',u.lastname)
+    SELECT DISTINCT
+        u.id,
+        CONCAT(u.firstname, ' ', u.lastname) AS fullname
     FROM {dnc_data} dd
     JOIN {user} u ON u.id = dd.userid
-    ORDER BY u.lastname ASC
+    ORDER BY fullname ASC
 ");
 
-// === FORMULARIO ===
+// === FORMULARIO DE FILTRO ===
 echo html_writer::start_div('card p-3 mb-4');
 echo html_writer::tag('h3', 'Filtro por usuario');
+
 echo '<form method="GET" action="report_global.php">';
-echo '<label>Usuario:</label><br>';
-echo html_writer::select($users, 'userid', $userid, ['0'=>'Todos']);
-echo '<br><br>';
-echo '<button class="btn btn-primary" type="submit">Filtrar</button>';
+
+echo html_writer::label('Usuario:', 'id_userid');
+
+echo html_writer::select(
+    $users,
+    'userid',
+    $userid,
+    ['0' => 'Todos'],
+    [
+        'id' => 'id_userid',
+        'class' => 'form-control',
+    ]
+);
+
+// Activar el autocompletado nativo de Moodle.
+$PAGE->requires->js_call_amd(
+    'core/form-autocomplete',
+    'enhance',
+    [
+        '#id_userid',
+        false,
+        '',
+        'Buscar usuario...',
+        false,
+        true,
+        'Todos',
+    ]
+);
+
+echo html_writer::empty_tag('br');
+echo html_writer::empty_tag('br');
+
+echo html_writer::tag(
+    'button',
+    'Filtrar',
+    [
+        'type' => 'submit',
+        'class' => 'btn btn-primary',
+    ]
+);
+
 echo '</form>';
 echo html_writer::end_div();
+
 
 // === QUERY BASE ===
 $params = [];
@@ -61,7 +101,7 @@ if ($where) {
     $sql .= " WHERE ".implode(" AND ", $where);
 }
 
-$sql .= " ORDER BY u.lastname ASC";
+$sql .= " ORDER BY username ASC";
 
 $records = $DB->get_records_sql($sql, $params);
 
